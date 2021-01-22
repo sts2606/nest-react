@@ -21,7 +21,11 @@ export const RegistrationForm: React.FC = () => {
   const registerHandler = async () => {
     try {
       const data = await request('/auth/register', 'POST', { ...form });
-      console.log('data', data);
+      const dataToken = await request('/auth/login', 'POST', {
+        email: form.email,
+        password: form.password,
+      });
+      auth.logIn(dataToken.accessToken, dataToken.email);
     } catch (e) {}
   };
 
