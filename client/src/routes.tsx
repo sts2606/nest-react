@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { LoginForm } from './pages/LoginForm';
 import { AuthPage } from './pages/AuthPage';
-import { FirstPage } from './pages/FisrtPage';
+import { FirstPage } from './pages/FirstPage';
 import { SomePage } from './pages/SomePage';
 import { RegistrationForm } from './pages/RegistrationForm';
 

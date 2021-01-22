@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { AuthContext } from '../context/AuthContext';
+import { useHttp } from '../hooks/http.hook';
 
 export const LoginForm: React.FC = () => {
+  const auth = useContext(AuthContext);
+  const { loading, request, error } = useHttp();
   const [form, setForm]: any = useState({
     email: '',
     password: '',
   });
 
+  const loginHandler = async () => {
+    try {
+      const data = await request('/auth/login', 'POST', { ...form });
+      auth.logIn(data.accessToken, data.email);
+    } catch (e) {}
+  };
+
   const changeHandler = (event: any) => {
-    setForm({ ...setForm, [event.target.name]: event.target.value });
+    setForm({ ...form, [event.target.name]: event.target.value });
   };
   return (
     <Form>
@@ -35,7 +47,12 @@ export const LoginForm: React.FC = () => {
       {/* <Form.Group>
         <Form.File id="exampleFormControlFile1" label="Example file input" />
       </Form.Group> */}
-      <Button variant="primary" type="submit">
+      <Button
+        variant="primary"
+        type="submit"
+        onClick={loginHandler}
+        disabled={loading}
+      >
         Login
       </Button>
     </Form>

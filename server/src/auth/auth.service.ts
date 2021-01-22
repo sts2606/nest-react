@@ -15,7 +15,6 @@ export class AuthService {
   ) {}
 
   async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
-    console.log(userDto);
     let status: RegistrationStatus = {
       success: true,
       message: 'user registered',
@@ -24,7 +23,7 @@ export class AuthService {
       await this.userService.create(userDto);
     } catch (err) {
       status = {
-        success: true,
+        success: false,
         message: err,
       };
     }
@@ -34,6 +33,7 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const user = await this.userService.findByLogin(loginUserDto);
     const token = this._createToken(user);
+    console.log('sxsx');
     return {
       email: user.email,
       ...token,

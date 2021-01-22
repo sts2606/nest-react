@@ -1,13 +1,20 @@
 import { BrowserRouter } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import { useAuth } from './hooks/auth.hook';
 import { useRouts } from './routes';
 
 const App: React.FC = () => {
-  const routs = useRouts(false);
-  console.log(routs);
+  const { token, email, logIn, logOut } = useAuth();
+  const isAuthenticated = !!token;
+  const routs = useRouts(isAuthenticated);
   return (
-    <div className="container">
-      <BrowserRouter>{routs}</BrowserRouter>
-    </div>
+    <AuthContext.Provider
+      value={{ token, email, logOut, isAuthenticated, logIn }}
+    >
+      <BrowserRouter>
+        <div className="container">{routs}</div>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 };
 

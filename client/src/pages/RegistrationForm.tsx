@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { AuthContext } from '../context/AuthContext';
 import { useHttp } from './../hooks/http.hook';
 
 export const RegistrationForm: React.FC = () => {
+  const auth = useContext(AuthContext);
   const { loading, request, error } = useHttp();
   const [form, setForm]: any = useState({
     firstName: '',
@@ -11,6 +13,8 @@ export const RegistrationForm: React.FC = () => {
     password: '',
     gender: '',
   });
+
+  useEffect(() => {}, [error]);
 
   const changeHandler = (event: any) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -23,6 +27,7 @@ export const RegistrationForm: React.FC = () => {
       console.log('data', data);
     } catch (e) {}
   };
+
   return (
     <Form>
       <Form.Group controlId="firstName">

@@ -14,7 +14,6 @@ export class AuthController {
   public async register(
     @Body() createUserDto: CreateUserDto,
   ): Promise<RegistrationStatus> {
-    console.log(createUserDto);
     const result: RegistrationStatus = await this.authService.register(
       createUserDto,
     );

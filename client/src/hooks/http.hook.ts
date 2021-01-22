@@ -7,6 +7,11 @@ export const useHttp = () => {
     async (url, method = 'GET', body = null, headers = {}) => {
       setLoading(true);
       try {
+        if (body) {
+          body = JSON.stringify(body);
+          console.log(body);
+          headers['Content-Type'] = 'application/json';
+        }
         const responce = await fetch(url, {
           method,
           body,
@@ -14,6 +19,7 @@ export const useHttp = () => {
         });
         const data = await responce.json();
         if (!responce.ok) {
+          console.log(headers);
           throw new Error(data.message || 'Something bad');
         }
         setLoading(false);
