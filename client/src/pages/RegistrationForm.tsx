@@ -14,14 +14,11 @@ export const RegistrationForm: React.FC = () => {
     gender: '',
   });
 
-  useEffect(() => {}, [error]);
-
   const changeHandler = (event: any) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
   const registerHandler = async () => {
-    // console.log(form);
     try {
       const data = await request('/auth/register', 'POST', { ...form });
       console.log('data', data);
