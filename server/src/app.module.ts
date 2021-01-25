@@ -1,4 +1,3 @@
-import { GreetingModule } from './greeting/greeting.module';
 import { configureModule } from './configure.root';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
@@ -13,7 +12,6 @@ import { FilesModule } from './files/files.module';
     MulterModule.register({
       dest: './uploads',
     }),
-    GreetingModule,
     UsersModule,
     AuthModule,
     configureModule,
