@@ -10,7 +10,6 @@ export const useAuth = () => {
     setToken(jwtToken);
     setEmail(adress);
     localStorage.setItem(storageName, JSON.stringify({ email, token }));
-    debugger;
   }, []);
   const logOut = useCallback(() => {
     setEmail(null);
