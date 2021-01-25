@@ -15,6 +15,7 @@ export const LoginForm: React.FC = () => {
   const loginHandler = async () => {
     try {
       const data = await request('/auth/login', 'POST', { ...form });
+      debugger;
       auth.logIn(data.accessToken, data.email);
     } catch (e) {}
   };

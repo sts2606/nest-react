@@ -21,7 +21,7 @@ export class User {
   @Prop({ required: true, enum: Object.values(genderEnum) })
   gender: string;
 
-  @Prop()
+  @Prop({ default: 'user.png' })
   awatar: string;
 }
 

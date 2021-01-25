@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const AuthPage: React.FC = () => {
   return (
-    <div>
-      {/* <RegistrationForm /> */}
-      {/* <LoginForm /> */}
+    <div className="autn-page">
       <Link to="/login" className="btn">
         Вход
       </Link>

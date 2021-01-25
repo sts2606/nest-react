@@ -12,7 +12,7 @@ const App: React.FC = () => {
       value={{ token, email, logOut, isAuthenticated, logIn }}
     >
       <BrowserRouter>
-        <div className="container">{routs}</div>
+        <div className="container flex-center">{routs}</div>
       </BrowserRouter>
     </AuthContext.Provider>
   );

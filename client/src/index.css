@@ -12,9 +12,13 @@ code {
     monospace;
 }
 
-/* .main-container {
+.flex-center {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
+
+.auth-page {
+  /* width: ; */
+}

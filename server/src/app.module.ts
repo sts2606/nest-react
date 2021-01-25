@@ -2,12 +2,17 @@ import { GreetingModule } from './greeting/greeting.module';
 import { configureModule } from './configure.root';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './uploads',
+    }),
     GreetingModule,
     UsersModule,
     AuthModule,
@@ -16,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [],
