@@ -7,6 +7,7 @@ export const CarsPage: React.FC = () => {
     const fetchData = async () => {
       const result = await fetch(`${window.location.href}`);
       const data = await result.json();
+      console.log('DATA', data);
       setCars(data);
     };
     fetchData();

@@ -5,7 +5,7 @@ interface Prop {
 }
 
 export const Comments: React.FC<Prop> = ({ carId }) => {
-  const [comments, setComments] = useState([{}]);
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(`http://localhost:3000/comments/${carId}`);
@@ -19,12 +19,8 @@ export const Comments: React.FC<Prop> = ({ carId }) => {
           `http://localhost:3000/users/${item.user}`
         );
         const user = await userData.json();
-        const commentItem = {
-          ...item,
-          userFirstName: user.firstName,
-          userLastName: user.lastName,
-        };
-        console.log(comments);
+        item.user = `${user.firstName} ${user.lastName}`;
+        // console.log(comments);
         // setComments([...comments, commentItem]);
         // commentFullData.push({
         //   ...item,
@@ -33,10 +29,21 @@ export const Comments: React.FC<Prop> = ({ carId }) => {
         // });
       }
       //   console.log(commentFullData);
-      //   setComments(commentFullData);
+      setComments(data);
     };
     fetchData();
   }, []);
-  console.log(comments);
-  return <div>{carId}</div>;
+  const commentData = comments.map(
+    (el: { user: string; commentText: string; date: string }) => {
+      return (
+        <div>
+          <h5>{`Комментарии (${comments.length})`}</h5>
+          <p>{el.user}</p>
+          <p>{new Date(el.date).toLocaleString()}</p>
+          <p>{el.commentText}</p>
+        </div>
+      );
+    }
+  );
+  return <div>{commentData}</div>;
 };

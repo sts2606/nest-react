@@ -20,13 +20,18 @@ export const DetailCarPage: React.FC = () => {
   }, []);
   return (
     <div className="carDetailCard">
-      <img src={`http://localhost:5000/cars/uploads/${car.image}`} alt="img" />
-      <div>
-        <h2>{car.brand}</h2>
-        <p>{car.model}</p>
-        <p>{car.year}</p>
+      <div className="carInfo">
+        <img
+          src={`http://localhost:5000/cars/uploads/${car.image}`}
+          alt="img"
+        />
+        <div>
+          <h2>{car.brand}</h2>
+          <p>{car.model}</p>
+          <p>{car.year}</p>
+        </div>
       </div>
-      {/* {car._id !== '' ? <Comments carId={car._id} /> : null} */}
+      {car._id !== '' ? <Comments carId={car._id} /> : null}
     </div>
   );
 };

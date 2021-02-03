@@ -39,10 +39,15 @@ ul {
   border: 1px solid black;
   padding: 25px;
   display: flex;
+  flex-direction: column;
 }
 
 .carDetailCard img {
   margin-right: 10px;
+}
+
+.carInfo {
+  display: flex;
 }
 
 .carList {
