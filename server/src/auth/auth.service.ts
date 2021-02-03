@@ -33,7 +33,6 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto) {
     const user = await this.userService.findByLogin(loginUserDto);
     const token = this._createToken(user);
-    console.log('sxsx');
     return {
       email: user.email,
       ...token,

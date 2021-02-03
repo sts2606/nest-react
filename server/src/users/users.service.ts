@@ -1,3 +1,4 @@
+// import { UserDocument } from 'src/users/schemas/user.schema';
 import { UserDto } from './dto/userDto.dto';
 import { CreateUserDto } from './dto/createUser.dto';
 import { User, UserDocument } from './schemas/user.schema';
@@ -33,7 +34,7 @@ export class UsersService {
     return await this.findOne({ email });
   }
 
-  async findByLogin({ email, password }: LoginUserDto): Promise<UserDto> {
+  async findByLogin({ email, password }: LoginUserDto): Promise<any> {
     const user = await this.userModel.findOne({ email }).exec();
 
     if (!user) {
@@ -43,7 +44,12 @@ export class UsersService {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
     if (user && user.password === password) {
-      return toUserDto(user);
+      //   return toUserDto(user);
+      return user;
     }
+  }
+
+  async findById(id: string): Promise<any> {
+    return await this.userModel.findOne({ _id: id }).exec();
   }
 }

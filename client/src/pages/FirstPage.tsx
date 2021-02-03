@@ -1,9 +1,17 @@
 import React from 'react';
 
-export const FirstPage: React.FC = () => {
+export const FirstPage: React.FC = (props) => {
+  console.log('props', props);
   return (
     <div>
-      <h1>Main</h1>
+      <div>
+        <div className="user-avatar">
+          <img src="" alt="user" />
+        </div>
+        <div>
+          <p>User info</p>
+        </div>
+      </div>
     </div>
   );
 };

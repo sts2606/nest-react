@@ -3,20 +3,24 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { LoginForm } from './pages/LoginForm';
 import { AuthPage } from './pages/AuthPage';
 import { FirstPage } from './pages/FirstPage';
-import { SomePage } from './pages/SomePage';
 import { RegistrationForm } from './pages/RegistrationForm';
+import { CarsPage } from './pages/CarsPage';
+import { DetailCarPage } from './pages/DetailCarPage';
 
 export const useRouts: any = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
     return (
       <Switch>
-        <Route path="/some" exact>
-          <SomePage />
-        </Route>
         <Route path="/main" exact>
           <FirstPage />
         </Route>
-        <Redirect to="/main" />
+        <Route path="/cars/:id">
+          <DetailCarPage />
+        </Route>
+        <Route path="/cars" exact>
+          <CarsPage />
+        </Route>
+        <Redirect to="/cars" />
       </Switch>
     );
   }

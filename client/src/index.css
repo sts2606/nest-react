@@ -22,3 +22,31 @@ code {
 .auth-page {
   /* width: ; */
 }
+
+.carItem {
+  display: flex;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+ul {
+  list-style: none;
+}
+
+.carDetailCard {
+  /* width: 500px; */
+  border: 1px solid black;
+  padding: 25px;
+  display: flex;
+}
+
+.carDetailCard img {
+  margin-right: 10px;
+}
+
+.carList {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  /* flex-wrap: nowrap; */
+}
