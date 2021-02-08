@@ -9,7 +9,6 @@ export const useHttp = () => {
       try {
         if (body) {
           body = JSON.stringify(body);
-          console.log(body);
           headers['Content-Type'] = 'application/json';
         }
         const responce = await fetch(url, {
@@ -19,7 +18,6 @@ export const useHttp = () => {
         });
         const data = await responce.json();
         if (!responce.ok) {
-          console.log(headers);
           throw new Error(data.message || 'Something bad');
         }
         setLoading(false);

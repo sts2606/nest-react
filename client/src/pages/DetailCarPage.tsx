@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { CommentForm } from '../components/CommentForm';
 import { Comments } from '../components/Comments';
 
 export const DetailCarPage: React.FC = () => {
@@ -31,6 +32,7 @@ export const DetailCarPage: React.FC = () => {
           <p>{car.year}</p>
         </div>
       </div>
+      <CommentForm />
       {car._id !== '' ? <Comments carId={car._id} /> : null}
     </div>
   );

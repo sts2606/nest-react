@@ -4,7 +4,7 @@ import { LoginForm } from './pages/LoginForm';
 import { AuthPage } from './pages/AuthPage';
 import { FirstPage } from './pages/FirstPage';
 import { RegistrationForm } from './pages/RegistrationForm';
-import { CarsPage } from './pages/CarsPage';
+import CarsPage from './pages/CarsPage';
 import { DetailCarPage } from './pages/DetailCarPage';
 
 export const useRouts: any = (isAuthenticated: boolean) => {
@@ -17,9 +17,9 @@ export const useRouts: any = (isAuthenticated: boolean) => {
         <Route path="/cars/:id">
           <DetailCarPage />
         </Route>
-        <Route path="/cars" exact>
-          <CarsPage />
-        </Route>
+        <Route path="/cars" exact component={CarsPage} />
+        {/* <CarsPage /> */}
+        {/* </Route> */}
         <Redirect to="/cars" />
       </Switch>
     );

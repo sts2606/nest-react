@@ -14,21 +14,12 @@ export const Comments: React.FC<Prop> = ({ carId }) => {
       //   let commentFullData: [object] = [{}];
 
       for (const item of data) {
-        // debugger;
         const userData = await fetch(
           `http://localhost:3000/users/${item.user}`
         );
         const user = await userData.json();
         item.user = `${user.firstName} ${user.lastName}`;
-        // console.log(comments);
-        // setComments([...comments, commentItem]);
-        // commentFullData.push({
-        //   ...item,
-        //   userFirstName: user.firstName,
-        //   userLastName: user.lastName,
-        // });
       }
-      //   console.log(commentFullData);
       setComments(data);
     };
     fetchData();

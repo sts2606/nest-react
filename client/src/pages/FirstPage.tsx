@@ -1,7 +1,6 @@
 import React from 'react';
 
 export const FirstPage: React.FC = (props) => {
-  console.log('props', props);
   return (
     <div>
       <div>

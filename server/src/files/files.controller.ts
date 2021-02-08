@@ -29,7 +29,6 @@ export class FilesController {
     }),
   )
   async uploadedFile(@UploadedFile() file) {
-    console.log(file);
     const response = {
       originalname: file.originalname,
       filename: file.filename,
