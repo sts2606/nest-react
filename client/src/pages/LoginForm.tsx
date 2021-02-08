@@ -7,7 +7,7 @@ import { useHttp } from '../hooks/http.hook';
 export const LoginForm: React.FC = () => {
   const auth = useContext(AuthContext);
   const { loading, request, error } = useHttp();
-  const [form, setForm]: any = useState({
+  const [form, setForm] = useState({
     email: '',
     password: '',
   });
@@ -19,7 +19,7 @@ export const LoginForm: React.FC = () => {
     } catch (e) {}
   };
 
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
   return (

@@ -33,7 +33,7 @@ export const DetailCarPage: React.FC = () => {
         </div>
       </div>
       <CommentForm />
-      {car._id !== '' ? <Comments carId={car._id} /> : null}
+      {car._id !== '' ? <Comments /> : null}
     </div>
   );
 };

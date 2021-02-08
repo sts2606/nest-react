@@ -1,14 +1,7 @@
 import { GET_CARS } from './types';
 
 const initialState = {
-  cars: [
-    {
-      _id: '1',
-      brand: 'ZAQ',
-      model: 'zaq',
-      year: 12,
-    },
-  ],
+  cars: [],
 };
 
 export const carReducer = (

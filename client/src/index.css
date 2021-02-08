@@ -55,3 +55,9 @@ ul {
   grid-template-columns: 30% 30% 30%;
   /* flex-wrap: nowrap; */
 }
+
+.comment {
+  padding: 5px;
+  border: 1px solid black;
+  margin: 1rem;
+}

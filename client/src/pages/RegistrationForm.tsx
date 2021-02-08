@@ -6,7 +6,7 @@ import { useHttp } from './../hooks/http.hook';
 export const RegistrationForm: React.FC = () => {
   const auth = useContext(AuthContext);
   const { loading, request, error } = useHttp();
-  const [form, setForm]: any = useState({
+  const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -14,7 +14,7 @@ export const RegistrationForm: React.FC = () => {
     gender: '',
   });
 
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
@@ -80,9 +80,6 @@ export const RegistrationForm: React.FC = () => {
         </Form.Control>
       </Form.Group>
 
-      {/* <Form.Group>
-        <Form.File id="exampleFormControlFile1" label="Example file input" />
-      </Form.Group> */}
       <Button
         variant="primary"
         type="submit"

@@ -1,34 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCommentsAction } from '../redux/actions';
 
-interface Prop {
-  carId: string;
-}
-
-export const Comments: React.FC<Prop> = ({ carId }) => {
-  const [comments, setComments] = useState([]);
+export const Comments: React.FC = () => {
+  const car: string = window.location.pathname.trim().split('/').pop()!;
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(`http://localhost:3000/comments/${carId}`);
-      const data = await result.json();
-
-      //   let commentFullData: [object] = [{}];
-
-      for (const item of data) {
-        const userData = await fetch(
-          `http://localhost:3000/users/${item.user}`
-        );
-        const user = await userData.json();
-        item.user = `${user.firstName} ${user.lastName}`;
-      }
-      setComments(data);
-    };
-    fetchData();
+    dispatch(getCommentsAction(car));
   }, []);
+
+  const comments: [] = useSelector((state: { comments: { comments: [] } }) => {
+    return state.comments.comments;
+  });
+
   const commentData = comments.map(
-    (el: { user: string; commentText: string; date: string }) => {
+    (el: { user: string; date: string; commentText: string }) => {
       return (
-        <div>
-          <h5>{`Комментарии (${comments.length})`}</h5>
+        <div className="comment" key={el.date}>
           <p>{el.user}</p>
           <p>{new Date(el.date).toLocaleString()}</p>
           <p>{el.commentText}</p>
@@ -36,5 +24,10 @@ export const Comments: React.FC<Prop> = ({ carId }) => {
       );
     }
   );
-  return <div>{commentData}</div>;
+  return (
+    <div>
+      <h5>{`Комментарии (${comments.length})`}</h5>
+      {commentData}
+    </div>
+  );
 };
