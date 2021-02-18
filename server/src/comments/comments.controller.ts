@@ -15,4 +15,9 @@ export class CommentsController {
   findByCar(@Param('carId') carId) {
     return this.commentServics.findByCar(carId);
   }
+
+  @Get()
+  findALl() {
+    return this.commentServics.getAllComments();
+  }
 }

@@ -18,16 +18,16 @@ export const RegistrationForm: React.FC = () => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  const registerHandler = async () => {
-    try {
-      const data = await request('/auth/register', 'POST', { ...form });
-      const dataToken = await request('/auth/login', 'POST', {
-        email: form.email,
-        password: form.password,
-      });
-      auth.logIn(dataToken.accessToken, dataToken.email);
-    } catch (e) {}
-  };
+  //   const registerHandler = async () => {
+  //     try {
+  //       const data = await request('/auth/register', 'POST', { ...form });
+  //       const dataToken = await request('/auth/login', 'POST', {
+  //         email: form.email,
+  //         password: form.password,
+  //       });
+  //       auth.logIn(dataToken.accessToken, dataToken.email);
+  //     } catch (e) {}
+  //   };
 
   return (
     <Form>
@@ -83,7 +83,7 @@ export const RegistrationForm: React.FC = () => {
       <Button
         variant="primary"
         type="submit"
-        onClick={registerHandler}
+        // onClick={registerHandler}
         disabled={loading}
       >
         Registration

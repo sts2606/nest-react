@@ -1,33 +1,40 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCommentsAction } from '../redux/actions';
+import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
+import { IComment } from './../interfaces/interfaces';
 
 export const Comments: React.FC = () => {
   const car: string = window.location.pathname.trim().split('/').pop()!;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCommentsAction(car));
-  }, []);
 
-  const comments: [] = useSelector((state: { comments: { comments: [] } }) => {
-    return state.comments.comments;
-  });
+  const comments: IComment[] = useSelector(
+    (state: { comments: { comments: IComment[] } }) => {
+      return state.comments.comments.filter((comment) => comment.car === car);
+    }
+  );
 
   const commentData = comments.map(
     (el: { user: string; date: string; commentText: string }) => {
       return (
-        <div className="comment" key={el.date}>
-          <p>{el.user}</p>
-          <p>{new Date(el.date).toLocaleString()}</p>
-          <p>{el.commentText}</p>
-        </div>
+        <Card border="primary" style={{ width: '18rem' }} key={el.date}>
+          <Card.Header>{new Date(el.date).toLocaleString()}</Card.Header>
+          <Card.Body>
+            <Card.Title>{el.user}</Card.Title>
+            <Card.Text>{el.commentText}</Card.Text>
+          </Card.Body>
+        </Card>
       );
     }
   );
   return (
-    <div>
-      <h5>{`Комментарии (${comments.length})`}</h5>
-      {commentData}
+    <div className="commentsBlock">
+      {comments.length ? (
+        <>
+          <h5>{`Комментарии (${comments.length})`}</h5>
+          {commentData}
+        </>
+      ) : (
+        <h5>Пока нет комментариев</h5>
+      )}
     </div>
   );
 };

@@ -34,6 +34,10 @@ export class AuthService {
     const user = await this.userService.findByLogin(loginUserDto);
     const token = this._createToken(user);
     return {
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      gender: user.gender,
       email: user.email,
       ...token,
     };
@@ -55,21 +59,4 @@ export class AuthService {
     }
     return user;
   }
-
-  //   async validateUser(email: string, pass: string): Promise<any> {
-  //     const user = await this.userService.find(email);
-  //     if (user && user.password === pass) {
-  //       const { password, ...result } = user;
-  //       return result;
-  //     }
-  //     return null;
-  //   }
-
-  //   async login(user: any) {
-  //     const payload = { email: user.email, sub: user._id };
-  //     return {
-  //       //   acces_token: this.iwtService.sign(payload),
-  //       user,
-  //     };
-  //   }
 }

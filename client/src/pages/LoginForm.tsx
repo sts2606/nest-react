@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../context/AuthContext';
 import { useHttp } from '../hooks/http.hook';
+import { userPostFetch } from '../redux/actions';
 
 export const LoginForm: React.FC = () => {
-  const auth = useContext(AuthContext);
-  const { loading, request, error } = useHttp();
-  const [form, setForm] = useState({
+  const [user, setUser] = useState({
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
-  const loginHandler = async () => {
-    try {
-      const data = await request('/auth/login', 'POST', { ...form });
-      auth.logIn(data.accessToken, data.email);
-    } catch (e) {}
+  const loginHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    dispatch(userPostFetch(user));
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
+    setUser({ ...user, [event.target.name]: event.target.value });
   };
   return (
     <Form>
@@ -43,15 +42,11 @@ export const LoginForm: React.FC = () => {
           onChange={changeHandler}
         />
       </Form.Group>
-
-      {/* <Form.Group>
-        <Form.File id="exampleFormControlFile1" label="Example file input" />
-      </Form.Group> */}
       <Button
         variant="primary"
         type="submit"
         onClick={loginHandler}
-        disabled={loading}
+        // disabled={loading}
       >
         Login
       </Button>

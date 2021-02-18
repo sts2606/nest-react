@@ -39,7 +39,7 @@ ul {
   border: 1px solid black;
   padding: 25px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 
 .carDetailCard img {
@@ -60,4 +60,8 @@ ul {
   padding: 5px;
   border: 1px solid black;
   margin: 1rem;
+}
+
+.commentsBlock {
+  margin-left: 20px;
 }

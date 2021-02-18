@@ -18,4 +18,8 @@ export class CommentsService {
   async findByCar(carId) {
     return await this.comentModel.find({ car: carId }).exec();
   }
+
+  async getAllComments() {
+    return await this.comentModel.find().exec();
+  }
 }

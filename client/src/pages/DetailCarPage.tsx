@@ -1,39 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { CommentForm } from '../components/CommentForm';
 import { Comments } from '../components/Comments';
+import { Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { ICar } from './../interfaces/interfaces';
 
 export const DetailCarPage: React.FC = () => {
-  const [car, setCar] = useState({
-    _id: '',
-    brand: '',
-    model: '',
-    year: 0,
-    image: '',
-    comments: [],
-  });
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(`${window.location.href}`);
-      const data = await result.json();
-      setCar(data);
-    };
-    fetchData();
-  }, []);
+  const carId = window.location.href.split('/').pop();
+  const car = useSelector(
+    (state: { cars: { cars: ICar[] }; comments: {}; user: {} }) =>
+      state.cars.cars.filter((car) => car._id === carId)[0]
+  );
+
   return (
     <div className="carDetailCard">
-      <div className="carInfo">
-        <img
-          src={`http://localhost:5000/cars/uploads/${car.image}`}
-          alt="img"
-        />
-        <div>
-          <h2>{car.brand}</h2>
-          <p>{car.model}</p>
-          <p>{car.year}</p>
-        </div>
+      <div>
+        <Card className="carCard">
+          <Card.Img
+            variant="top"
+            src={`http://localhost:5000/cars/uploads/${car.image}`}
+          />
+          <Card.Body>
+            <Card.Title>{car.brand}</Card.Title>
+            <Card.Text>
+              {car.model}
+              &nbsp;
+              {car.year}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <CommentForm />
       </div>
-      <CommentForm />
-      {car._id !== '' ? <Comments /> : null}
+      <Comments />
     </div>
   );
 };
