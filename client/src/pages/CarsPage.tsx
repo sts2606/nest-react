@@ -20,7 +20,6 @@ export const CarsPage: React.FC = () => {
   }, []);
 
   const { cars, loading } = useSelector((state: StateType) => state.cars);
-  console.log(useStore().getState());
   const carsList = cars.map((el: ICar) => {
     return (
       <li className="carItem" key={el._id}>

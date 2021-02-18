@@ -14,7 +14,6 @@ export const commentReducer = (
       return { ...state, comments: action.payload };
 
     case ADD_COMMENT:
-      console.log(action);
       return { ...state, comments: [...state.comments, action.payload] };
 
     case CHANGE_COMMENT_INPUT:
