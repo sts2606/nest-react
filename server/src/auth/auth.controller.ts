@@ -1,30 +1,38 @@
-import { CreateUserDto } from './../users/dto/createUser.dto';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UseGuards,
+  Request,
+  Get,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Body, Controller, Post } from '@nestjs/common';
-import { RegistrationStatus } from './interfaces/registrationStatus.interface';
-import { LoginUserDto } from 'src/users/dto/loginUserDto.dto';
-import { HttpStatus } from '@nestjs/common';
-import { HttpException } from '@nestjs/common';
+import { RegisterUserDto } from './dto/registerUser.dto';
+import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
+import { JwtAuthenticationGuard } from './guards/jwtAuthentication.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  public async register(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<RegistrationStatus> {
-    const result: RegistrationStatus = await this.authService.register(
-      createUserDto,
-    );
-    if (!result.success) {
-      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
-    }
-    return result;
+  async register(@Body() registerUserDto: RegisterUserDto) {
+    const user = await this.authService.register(registerUserDto);
+    const token = await this.authService.login(user);
+    return { user, token };
   }
 
+  @HttpCode(200)
+  @UseGuards(LocalAuthenticationGuard)
   @Post('login')
-  public async login(@Body() loginUserDto: LoginUserDto): Promise<any> {
-    return await this.authService.login(loginUserDto);
+  async login(@Request() req) {
+    return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthenticationGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }

@@ -1,40 +1,33 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
-import { IComment } from './../interfaces/interfaces';
+import { Card } from 'primereact/card';
+import { IComment } from '../store/types/car';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
-export const Comments: React.FC = () => {
-  const car: string = window.location.pathname.trim().split('/').pop()!;
+export const Comments = () => {
+  const carId = window.location.href.split('/').pop()!;
 
-  const comments: IComment[] = useSelector(
-    (state: { comments: { comments: IComment[] } }) => {
-      return state.comments.comments.filter((comment) => comment.car === car);
-    }
-  );
+  const commentsFromState: IComment[] = useTypedSelector((state) => {
+    return state.cars.cars.filter((car) => car._id === carId)[0].comments;
+  });
 
-  const commentData = comments.map(
-    (el: { user: string; date: string; commentText: string }) => {
-      return (
-        <Card border="primary" style={{ width: '18rem' }} key={el.date}>
-          <Card.Header>{new Date(el.date).toLocaleString()}</Card.Header>
-          <Card.Body>
-            <Card.Title>{el.user}</Card.Title>
-            <Card.Text>{el.commentText}</Card.Text>
-          </Card.Body>
-        </Card>
-      );
-    }
-  );
+  const comments = commentsFromState.map((comment: IComment) => {
+    return (
+      <Card
+        title={`${comment.userFullName}`}
+        style={{ width: '25rem', marginBottom: '0.2em' }}
+      >
+        <p
+          className="p-m-0"
+          style={{ lineHeight: '0.5' }}
+        >{`${comment.commentText}`}</p>
+      </Card>
+    );
+  });
+
+  const emptyCommentsTitle = <h6>Комментариев пока нет</h6>;
+
   return (
     <div className="commentsBlock">
-      {comments.length ? (
-        <>
-          <h5>{`Комментарии (${comments.length})`}</h5>
-          {commentData}
-        </>
-      ) : (
-        <h5>Пока нет комментариев</h5>
-      )}
+      {commentsFromState.length > 0 ? comments : emptyCommentsTitle}
     </div>
   );
 };

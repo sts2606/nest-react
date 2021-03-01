@@ -1,31 +1,19 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
-import { useAuth } from './hooks/auth.hook';
 import { useRouts } from './routes';
-// import { getProfileFetch } from './redux/actions';
+import { Header } from './components/Header';
+import { useTypedSelector } from './hooks/useTypedSelector';
+import { IUserFromServer } from './interfaces/interfaces';
 
 const App: React.FC = () => {
-  const user = useSelector(
-    (state: { user: { user: { accessToken: string } } }) => state.user.user
-  );
-
-  const dispatch = useDispatch();
-
-  //   useEffect(() => {
-  //     dispatch(getProfileFetch());
-  //   }, []);
-
-  const accessToken = user.accessToken;
+  const user: IUserFromServer = useTypedSelector((state) => state.userReducer);
+  const accessToken = user.user._id;
   const isAuthenticated = !!accessToken;
   const routs = useRouts(isAuthenticated);
   return (
-    <AuthContext.Provider value={{ isAuthenticated }}>
-      <BrowserRouter>
-        <div className="container flex-center">{routs}</div>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <BrowserRouter>
+      <Header />
+      <div className="container flex-center">{routs}</div>
+    </BrowserRouter>
   );
 };
 

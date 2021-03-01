@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthContext } from '../context/AuthContext';
-import { useHttp } from '../hooks/http.hook';
-import { userPostFetch } from '../redux/actions';
+// import { userPostFetch } from '../redux/actions';
 
 export const LoginForm: React.FC = () => {
   const [user, setUser] = useState({
@@ -15,7 +12,7 @@ export const LoginForm: React.FC = () => {
 
   const loginHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    dispatch(userPostFetch(user));
+    // dispatch(userPostFetch(user));
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,11 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { AuthContext } from '../context/AuthContext';
-import { useHttp } from './../hooks/http.hook';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
+import { useDispatch } from 'react-redux';
+import { userPostFetch } from '../store/actions/userActions';
 
 export const RegistrationForm: React.FC = () => {
-  const auth = useContext(AuthContext);
-  const { loading, request, error } = useHttp();
+  const genderSelectItems = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+  ];
+
+  enum FormInputNames {
+    firstName = 'firstName',
+    lastName = 'lastName',
+    email = 'email',
+    password = 'password',
+    gender = 'gender',
+  }
+
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -14,80 +27,76 @@ export const RegistrationForm: React.FC = () => {
     gender: '',
   });
 
+  const dispatch = useDispatch();
+
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  //   const registerHandler = async () => {
-  //     try {
-  //       const data = await request('/auth/register', 'POST', { ...form });
-  //       const dataToken = await request('/auth/login', 'POST', {
-  //         email: form.email,
-  //         password: form.password,
-  //       });
-  //       auth.logIn(dataToken.accessToken, dataToken.email);
-  //     } catch (e) {}
-  //   };
+  const changeHandlerDropdown = (e: {
+    originalEvent: Event;
+    target: {
+      name: string;
+      value: string;
+    };
+  }) => {
+    setForm({ ...form, gender: e.target.value });
+  };
+
+  const registerHandler = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    dispatch(userPostFetch(form));
+  };
 
   return (
-    <Form>
-      <Form.Group controlId="firstName">
-        <Form.Label>First name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter first name"
-          name="firstName"
-          onChange={changeHandler}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="lastName">
-        <Form.Label>Larst name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter larst name"
-          name="lastName"
-          onChange={changeHandler}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          name="email"
-          onChange={changeHandler}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={changeHandler}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="gender">
-        <Form.Label>Gender</Form.Label>
-        <Form.Control as="select" name="gender" onChange={changeHandler}>
-          <option>Gender</option>
-          <option>male</option>
-          <option>female</option>
-        </Form.Control>
-      </Form.Group>
-
-      <Button
-        variant="primary"
-        type="submit"
-        // onClick={registerHandler}
-        disabled={loading}
-      >
-        Registration
-      </Button>
-    </Form>
+    <form>
+      <div className="p-fluid">
+        <div className="p-field">
+          <label htmlFor={FormInputNames.firstName}>Firstname</label>
+          <InputText
+            name={FormInputNames.firstName}
+            type="text"
+            onChange={changeHandler}
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor={FormInputNames.lastName}>Lastname</label>
+          <InputText
+            name={FormInputNames.lastName}
+            type="text"
+            onChange={changeHandler}
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor={FormInputNames.email}>Email</label>
+          <InputText
+            name={FormInputNames.email}
+            type="text"
+            onChange={changeHandler}
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor={FormInputNames.password}>Password</label>
+          <InputText
+            name={FormInputNames.password}
+            type="password"
+            onChange={changeHandler}
+          />
+        </div>
+        <div className="p-field">
+          <label htmlFor={FormInputNames.gender}>Gender</label>
+          <Dropdown
+            value={form.gender}
+            options={genderSelectItems}
+            onChange={changeHandlerDropdown}
+            placeholder="Select a Gender"
+            name={FormInputNames.gender}
+          />
+        </div>
+        <Button label="Register" icon="pi pi-check" onClick={registerHandler} />
+      </div>
+    </form>
   );
 };

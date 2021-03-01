@@ -7,7 +7,7 @@ export const AuthPage: React.FC = () => {
       <Link to="/login" className="btn">
         Вход
       </Link>
-      <Link to="/register" className="btn">
+      <Link to="/auth/register" className="btn">
         Регистрация
       </Link>
     </div>

@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export type CarDocument = Car & Document;
-
 @Schema()
 export class Car {
   @Prop()
@@ -17,8 +17,8 @@ export class Car {
   @Prop()
   image: string;
 
-  @Prop()
-  comments: [string];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
+  comments: Comment[];
 }
 
 export const CarSchema = SchemaFactory.createForClass(Car);

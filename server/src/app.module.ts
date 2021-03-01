@@ -7,7 +7,6 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { CarsModule } from './cars/cars.module';
-import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { CommentsModule } from './comments/comments.module';
     }),
     FilesModule,
     CarsModule,
-    CommentsModule,
   ],
   controllers: [AppController],
   providers: [],

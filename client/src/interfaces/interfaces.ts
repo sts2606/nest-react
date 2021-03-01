@@ -5,10 +5,21 @@ export interface IComment {
   commentText: string;
 }
 
-export interface ICar {
-  _id: string;
-  brand: string;
-  model: string;
-  year: number;
-  image: string;
+export interface IUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  gender: string;
+}
+
+export interface IUserFromServer {
+  user: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: null;
+    gender: string;
+    _id: string;
+  };
 }

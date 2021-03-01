@@ -65,3 +65,24 @@ ul {
 .commentsBlock {
   margin-left: 20px;
 }
+
+.header {
+  height: 150px;
+  display: flex;
+  background-color: aqua;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 100px;
+}
+
+.carCard {
+  display: flex;
+}
+
+.commentsBlock {
+  display: flex;
+  flex-direction: column;
+}

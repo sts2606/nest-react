@@ -12,13 +12,18 @@ export class UsersController {
     return this.userService.create(createUserDto);
   }
 
-  @Get(':email/:password')
-  findByLogin(@Param() loginUserDtpo: LoginUserDto) {
-    return this.userService.findByLogin(loginUserDtpo);
-  }
+  //   @Get(':email/:password')
+  //   findByLogin(@Param() loginUserDtpo: LoginUserDto) {
+  //     return this.userService.findByLogin(loginUserDtpo);
+  //   }
 
-  @Get(':id')
-  findById(@Param('id') id) {
-    return this.userService.findById(id);
+  //   @Get(':id')
+  //   findById(@Param('id') id) {
+  //     return this.userService.findById(id);
+  //   }
+
+  @Get(':email')
+  findByEmail(@Param('email') email) {
+    return this.userService.getByEmail(email);
   }
 }

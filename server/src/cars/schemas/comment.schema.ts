@@ -9,13 +9,13 @@ export type CommentDocument = Comment & Document;
 @Schema()
 export class Comment {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  userId: User;
+
+  @Prop()
+  userFullName: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Car' })
   car: Car;
-
-  @Prop({ type: Date, default: Date.now })
-  date;
 
   @Prop()
   commentText: string;

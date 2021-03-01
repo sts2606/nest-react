@@ -6,6 +6,7 @@ import { FirstPage } from './pages/FirstPage';
 import { RegistrationForm } from './pages/RegistrationForm';
 import { CarsPage } from './pages/CarsPage';
 import { DetailCarPage } from './pages/DetailCarPage';
+import { MyProfile } from './pages/MyProfile';
 
 export const useRouts: any = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
@@ -32,8 +33,11 @@ export const useRouts: any = (isAuthenticated: boolean) => {
       <Route path="/login" exact>
         <LoginForm />
       </Route>
-      <Route path="/register" exact>
+      <Route path="/auth/register" exact>
         <RegistrationForm />
+      </Route>
+      <Route path="/profile" exact>
+        <MyProfile />
       </Route>
       <Redirect to="/" />
     </Switch>

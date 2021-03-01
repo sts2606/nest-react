@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { getCarAction, getCommentsAction } from '../redux/actions';
+import { useDispatch } from 'react-redux';
 import { Loader } from './../components/Loader';
-import { ICar } from './../interfaces/interfaces';
-
-type StateType = {
-  cars: {
-    cars: [];
-    loading: boolean;
-  };
-};
+import { ICar } from '../store/types/car';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { carsGetFetch } from '../store/actions/carsAction';
 
 export const CarsPage: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCarAction());
-    dispatch(getCommentsAction());
+    dispatch(carsGetFetch());
   }, []);
 
-  const { cars, loading } = useSelector((state: StateType) => state.cars);
+  const { cars, loading } = useTypedSelector((state) => state.cars);
   const carsList = cars.map((el: ICar) => {
     return (
       <li className="carItem" key={el._id}>

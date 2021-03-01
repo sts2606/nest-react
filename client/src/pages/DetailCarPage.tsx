@@ -1,36 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { CommentForm } from '../components/CommentForm';
+import { Card } from 'primereact/card';
 import { Comments } from '../components/Comments';
-import { Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { ICar } from './../interfaces/interfaces';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { ICar } from './../store/types/car';
+import { useDispatch } from 'react-redux';
+import { getAllCommentsOfCar } from '../store/actions/carsAction';
 
 export const DetailCarPage: React.FC = () => {
-  const carId = window.location.href.split('/').pop();
-  const car = useSelector(
-    (state: { cars: { cars: ICar[] }; comments: {}; user: {} }) =>
-      state.cars.cars.filter((car) => car._id === carId)[0]
+  const dispatch = useDispatch();
+
+  const carId = window.location.href.split('/').pop()!;
+
+  useEffect(() => {
+    dispatch(getAllCommentsOfCar(carId));
+  }, []);
+
+  const car: ICar = useTypedSelector((state) => {
+    return state.cars.cars.filter((car) => car._id === carId)[0];
+  });
+
+  const header = (
+    <img alt="Card" src={`http://localhost:5000/cars/uploads/${car.image}`} />
   );
 
   return (
-    <div className="carDetailCard">
-      <div>
-        <Card className="carCard">
-          <Card.Img
-            variant="top"
-            src={`http://localhost:5000/cars/uploads/${car.image}`}
-          />
-          <Card.Body>
-            <Card.Title>{car.brand}</Card.Title>
-            <Card.Text>
-              {car.model}
-              &nbsp;
-              {car.year}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <CommentForm />
-      </div>
+    <div className="carCard">
+      <Card
+        title={car.brand}
+        subTitle={`${car.model} ${car.year}`}
+        style={{ width: '25em' }}
+        header={header}
+      >
+        <p className="p-m-0" style={{ lineHeight: '1.5' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+          sed consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas!
+        </p>
+      </Card>
       <Comments />
     </div>
   );
