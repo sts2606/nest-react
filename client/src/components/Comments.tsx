@@ -1,10 +1,17 @@
 import { Card } from 'primereact/card';
-import { IComment } from '../store/types/car';
+import { IComment } from '../interfaces/interfaces';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { CommentForm } from './CommenttForm';
 
-export const Comments = () => {
-  const carId = window.location.href.split('/').pop()!;
+type CommentProps = {
+  carId: string;
+  commentLoading: boolean;
+};
 
+export const Comments: React.FC<CommentProps> = ({
+  carId,
+  commentLoading,
+}: CommentProps) => {
   const commentsFromState: IComment[] = useTypedSelector((state) => {
     return state.cars.cars.filter((car) => car._id === carId)[0].comments;
   });
@@ -28,6 +35,7 @@ export const Comments = () => {
   return (
     <div className="commentsBlock">
       {commentsFromState.length > 0 ? comments : emptyCommentsTitle}
+      <CommentForm car={carId} commentLoading={commentLoading} />
     </div>
   );
 };

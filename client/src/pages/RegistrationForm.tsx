@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
-import { useDispatch } from 'react-redux';
 import { userPostFetch } from '../store/actions/userActions';
 
 export const RegistrationForm: React.FC = () => {

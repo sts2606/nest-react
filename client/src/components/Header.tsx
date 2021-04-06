@@ -9,8 +9,12 @@ export const Header: React.FC = () => {
         <img src={logo} alt="logo" className="logo" />
       </div>
       <nav>
-        <Link to="/cars">Cars</Link>
-        <Link to="/profile">Profile</Link>
+        <Link to="/cars" className="nawBarItem">
+          Cars
+        </Link>
+        <Link to="/profile" className="nawBarItem">
+          Profile
+        </Link>
       </nav>
     </header>
   );

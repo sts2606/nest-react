@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { Card } from 'primereact/card';
 import { Comments } from '../components/Comments';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { ICar } from './../store/types/car';
-import { useDispatch } from 'react-redux';
+import { ICar } from '../interfaces/interfaces';
 import { getAllCommentsOfCar } from '../store/actions/carsAction';
+import { RouterParams } from '../interfaces/interfaces';
 
-export const DetailCarPage: React.FC = () => {
+const DetailCarPage: React.FC<RouteComponentProps<RouterParams>> = (props) => {
   const dispatch = useDispatch();
-
-  const carId = window.location.href.split('/').pop()!;
+  const carId = props.match.params.id;
 
   useEffect(() => {
     dispatch(getAllCommentsOfCar(carId));
@@ -17,6 +18,10 @@ export const DetailCarPage: React.FC = () => {
 
   const car: ICar = useTypedSelector((state) => {
     return state.cars.cars.filter((car) => car._id === carId)[0];
+  });
+
+  const commentLoading: boolean = useTypedSelector((state) => {
+    return state.cars.commentLoading;
   });
 
   const header = (
@@ -38,7 +43,9 @@ export const DetailCarPage: React.FC = () => {
           esse, cupiditate neque quas!
         </p>
       </Card>
-      <Comments />
+      <Comments carId={carId} commentLoading={commentLoading} />
     </div>
   );
 };
+
+export default withRouter(DetailCarPage);

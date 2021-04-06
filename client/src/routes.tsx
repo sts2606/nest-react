@@ -2,24 +2,23 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { LoginForm } from './pages/LoginForm';
 import { AuthPage } from './pages/AuthPage';
-import { FirstPage } from './pages/FirstPage';
 import { RegistrationForm } from './pages/RegistrationForm';
 import { CarsPage } from './pages/CarsPage';
-import { DetailCarPage } from './pages/DetailCarPage';
+import DetailCarPage from './pages/DetailCarPage';
 import { MyProfile } from './pages/MyProfile';
 
 export const useRouts: any = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
     return (
       <Switch>
-        <Route path="/main" exact>
-          <FirstPage />
-        </Route>
         <Route path="/cars/:id">
           <DetailCarPage />
         </Route>
         <Route path="/cars" exact>
           <CarsPage />
+        </Route>
+        <Route path="/profile" exact>
+          <MyProfile />
         </Route>
         <Redirect to="/cars" />
       </Switch>
@@ -30,14 +29,11 @@ export const useRouts: any = (isAuthenticated: boolean) => {
       <Route path="/" exact>
         <AuthPage />
       </Route>
-      <Route path="/login" exact>
+      <Route path="/auth/login" exact>
         <LoginForm />
       </Route>
       <Route path="/auth/register" exact>
         <RegistrationForm />
-      </Route>
-      <Route path="/profile" exact>
-        <MyProfile />
       </Route>
       <Redirect to="/" />
     </Switch>

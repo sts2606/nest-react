@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Loader } from './../components/Loader';
-import { ICar } from '../store/types/car';
+import { ICar } from '../interfaces/interfaces';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { carsGetFetch } from '../store/actions/carsAction';
 
@@ -11,7 +11,6 @@ export const CarsPage: React.FC = () => {
   useEffect(() => {
     dispatch(carsGetFetch());
   }, []);
-
   const { cars, loading } = useTypedSelector((state) => state.cars);
   const carsList = cars.map((el: ICar) => {
     return (

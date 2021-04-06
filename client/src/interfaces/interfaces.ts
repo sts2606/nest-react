@@ -1,7 +1,6 @@
 export interface IComment {
-  user: string;
-  car: string;
-  date: string;
+  userId: string;
+  carId: string;
   commentText: string;
 }
 
@@ -22,4 +21,25 @@ export interface IUserFromServer {
     gender: string;
     _id: string;
   };
+}
+
+export interface RouterParams {
+  id: string;
+}
+
+export interface ICar {
+  _id: string;
+  brand: string;
+  model: string;
+  year: number;
+  image: string;
+  comments: IComment[];
+}
+
+export interface IComment {
+  _id?: string;
+  userId: string;
+  userFullName?: string;
+  car: string;
+  commentText: string;
 }

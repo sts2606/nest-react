@@ -1,11 +1,19 @@
-import { LOGIN_USER } from './../types/user';
+import { LOGIN_USER, UserState } from './../types/user';
 
-const initialState = {
-  user: {},
+const initialState: UserState = {
+  user: {
+    awatar: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    _id: '',
+    password: null,
+    gender: '',
+  },
 };
 
 export const userReducer = (
-  state = initialState,
+  state: UserState = initialState,
   action: { type: string; payload?: [] }
 ) => {
   switch (action.type) {

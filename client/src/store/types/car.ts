@@ -1,3 +1,5 @@
+import { IComment } from '../../interfaces/interfaces';
+
 export enum CarActionTypes {
   FETCH_CARS_START = 'FETCH_CARS_START',
   FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS',
@@ -5,28 +7,14 @@ export enum CarActionTypes {
   GET_ALL_COMMENTS_OF_CAR_STARTS = 'GET_ALL_COMMENTS_OF_CAR_STARTS',
   GET_ALL_COMMENTS_OF_CAR_SUCCESS = 'GET_ALL_COMMENTS_OF_CAR_SUCCESS',
   GET_ALL_COMMENTS_OF_CAR_ERROR = 'GET_ALL_COMMENTS_OF_CAR_ERROR',
+  COMMENT_POST_FETCH_START = 'COMMENT_POST_FETCH_START',
+  COMMENT_POST_FETCH_SUCCESS = 'COMMENT_POST_FETCH_SUCCESS',
 }
-
-export interface ICar {
-  _id: string;
-  brand: string;
-  model: string;
-  year: number;
-  image: string;
-  comments: IComment[];
-}
-
-export interface IComment {
-  userId: string;
-  userFullName: string;
-  car: string;
-  commentText: string;
-}
-
 export interface CarState {
   cars: any[];
   loading: boolean;
   error: null | string;
+  commentLoading: boolean;
 }
 
 interface FetchCarAction {
@@ -58,10 +46,21 @@ interface GetAllCommentsOfCarError {
   payload: string;
 }
 
+interface PostNewCommentFetchStart {
+  type: CarActionTypes.COMMENT_POST_FETCH_START;
+}
+
+interface PostNewCommentFetchSuccess {
+  type: CarActionTypes.COMMENT_POST_FETCH_SUCCESS;
+  payload: IComment;
+}
+
 export type CarAction =
   | FetchCarAction
   | FetchCarErrorAction
   | FetchCarSuccessAction
   | GetAllCommentsOfCarStart
   | GetAllCommentsOfCarSuccess
-  | GetAllCommentsOfCarError;
+  | GetAllCommentsOfCarError
+  | PostNewCommentFetchStart
+  | PostNewCommentFetchSuccess;

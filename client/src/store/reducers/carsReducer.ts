@@ -1,9 +1,11 @@
+import { act } from '@testing-library/react';
 import { CarAction, CarState, CarActionTypes } from '../types/car';
 
 const initialState: CarState = {
-  cars: [],
+  cars: [{ comments: [] }],
   loading: false,
   error: null,
+  commentLoading: false,
 };
 
 export const carsReducer = (
@@ -22,7 +24,7 @@ export const carsReducer = (
         ...state,
         cars: state.cars.map((car) => {
           if (car._id === action.payload) {
-            return { ...car, loadingComments: true };
+            return { ...car };
           }
           return car;
         }),
@@ -35,7 +37,22 @@ export const carsReducer = (
             return {
               ...car,
               comments: [...action.payload.comments],
-              loadingComments: false,
+            };
+          }
+          return car;
+        }),
+      };
+    case CarActionTypes.COMMENT_POST_FETCH_START:
+      return { ...state, commentLoading: true };
+    case CarActionTypes.COMMENT_POST_FETCH_SUCCESS:
+      return {
+        ...state,
+        commentLoading: false,
+        cars: state.cars.map((car) => {
+          if (car._id === action.payload.car) {
+            return {
+              ...car,
+              comments: [...car.comments, action.payload],
             };
           }
           return car;
